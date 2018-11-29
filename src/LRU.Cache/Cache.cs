@@ -11,9 +11,9 @@ namespace LRU.Cache
         public int Count => _dictionary.Count;
 
         /// <summary>
-        /// Creates a least recently used cache
+        /// Creates a least recently used cache with a specified number of entries.
         /// </summary>
-        /// <param name="maxSize">The maximum number of entries in the cache</param>
+        /// <param name="maxSize">The maximum number of entries in the least recently used cache</param>
         public Cache(int maxSize)
         {
             _maxSize = maxSize;
@@ -22,11 +22,11 @@ namespace LRU.Cache
         }
 
         /// <summary>
-        /// Add a key/value pair to the least recently used cache
+        /// Add a specified key/value pair to the least recently used cache.
         /// </summary>
-        /// <param name="key">The key for the value</param>
+        /// <param name="key">The key</param>
         /// <param name="value">The value</param>
-        /// <returns>The value added to the cache</returns>
+        /// <returns>The value that was added to the least recently used cache</returns>
         public TValue Add(TKey key, TValue value)
         {
             if (Count == _maxSize)
@@ -43,11 +43,11 @@ namespace LRU.Cache
         }
 
         /// <summary>
-        /// Retrieves a value from a key in the cache
+        /// Retrieves a value by a specified key from the least recently used cache.
         /// </summary>
         /// <param name="key">The key for the value</param>
         /// <param name="value">The retrieved value</param>
-        /// <returns>The result of retrieving the value</returns>
+        /// <returns>True if the value was successfully retrieved, else false</returns>
         public bool TryGetValue(TKey key, out TValue value)
         {
             if (!_dictionary.ContainsKey(key))
@@ -63,17 +63,27 @@ namespace LRU.Cache
         }
 
         /// <summary>
-        /// Removes a key/value pair from the cache
+        /// Removes a specified key/value pair from the least recently used cache.
         /// </summary>
-        /// <param name="key">The key for the value</param>
-        /// <returns>The removed value from the cache</returns>
+        /// <param name="key">The key</param>
+        /// <returns>The value removed from the least recently used cache</returns>
         public TValue Remove(TKey key)
         {
             _dictionary.Remove(key, out var node);
             _linkedList.Remove(node);
             return node.Value.Value;
         }
-        
+
+        /// <summary>
+        /// Determines whether the least recently used cache contains the specified key.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <returns>True if the key exists, else false</returns>
+        public bool ContainsKey(TKey key)
+        {
+            return _dictionary.ContainsKey(key);
+        }
+
         public TValue this[TKey key]
         {
             get
@@ -88,27 +98,12 @@ namespace LRU.Cache
             set => UpdateValue(key, value);
         }
 
-        /// <summary>
-        /// Determines whether the cache contains the specified key
-        /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>Whether the cache contains the specified key</returns>
-        public bool ContainsKey(TKey key)
-        {
-            return _dictionary.ContainsKey(key);
-        }
-
         private void RemoveOldest()
         {
             _dictionary.Remove(_linkedList.Last.Value.Key);
             _linkedList.RemoveLast();
         }
 
-        /// <summary>
-        /// Updates a value in the cache
-        /// </summary>
-        /// <param name="key">The key for the value</param>
-        /// <param name="value">The new value</param>
         private void UpdateValue(TKey key, TValue value)
         {
             if (!_dictionary.ContainsKey(key))
