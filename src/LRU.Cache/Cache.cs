@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LRU.Cache
 {
@@ -23,9 +21,8 @@ namespace LRU.Cache
             _dictionary = new Dictionary<TKey, LinkedListNode<LinkedListValue<TKey, TValue>>>();
         }
 
-
         /// <summary>
-        /// Add a key/value pair to the cache
+        /// Add a key/value pair to the least recently used cache
         /// </summary>
         /// <param name="key">The key for the value</param>
         /// <param name="value">The value</param>
@@ -92,22 +89,6 @@ namespace LRU.Cache
         }
 
         /// <summary>
-        /// Updates a value in the cache
-        /// </summary>
-        /// <param name="key">The key for the value</param>
-        /// <param name="value">The new value</param>
-        private void UpdateValue(TKey key, TValue value)
-        {
-            if (!_dictionary.ContainsKey(key))
-            {
-                throw new KeyNotFoundException("The key was not found in the cache.");
-            }
-            
-            Remove(key);
-            Add(key, value);
-        }
-
-        /// <summary>
         /// Determines whether the cache contains the specified key
         /// </summary>
         /// <param name="key">The key</param>
@@ -121,6 +102,22 @@ namespace LRU.Cache
         {
             _dictionary.Remove(_linkedList.Last.Value.Key);
             _linkedList.RemoveLast();
+        }
+
+        /// <summary>
+        /// Updates a value in the cache
+        /// </summary>
+        /// <param name="key">The key for the value</param>
+        /// <param name="value">The new value</param>
+        private void UpdateValue(TKey key, TValue value)
+        {
+            if (!_dictionary.ContainsKey(key))
+            {
+                throw new KeyNotFoundException("The key was not found in the cache.");
+            }
+
+            Remove(key);
+            Add(key, value);
         }
     }
 }
