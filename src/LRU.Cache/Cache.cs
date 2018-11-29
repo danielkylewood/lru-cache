@@ -18,7 +18,7 @@ namespace LRU.Cache
         {
             _maxSize = maxSize;
             _linkedList = new LinkedList<LinkedListValue<TKey, TValue>>();
-            _dictionary = new Dictionary<TKey, LinkedListNode<LinkedListValue<TKey, TValue>>>();
+            _dictionary = new Dictionary<TKey, LinkedListNode<LinkedListValue<TKey, TValue>>>(_maxSize);
         }
 
         /// <summary>

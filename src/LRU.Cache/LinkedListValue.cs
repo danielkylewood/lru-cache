@@ -1,6 +1,6 @@
 ﻿namespace LRU.Cache
 {
-    public class LinkedListValue<TKey, TValue>
+    internal class LinkedListValue<TKey, TValue>
     {
         public TKey Key { get; }
         public TValue Value { get; }
