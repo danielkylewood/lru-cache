@@ -6,8 +6,8 @@ namespace LRU.Cache.Cache
     public class Cache<TKey, TValue>
     {
         private readonly int _maxSize;
-        private readonly LinkedList<Node<TKey, TValue>> _linkedList;
-        private readonly Dictionary<TKey, LinkedListNode<Node<TKey, TValue>>> _dictionary;
+        private readonly LinkedList<CacheValue<TKey, TValue>> _linkedList;
+        private readonly Dictionary<TKey, LinkedListNode<CacheValue<TKey, TValue>>> _dictionary;
 
         public int Count => _dictionary.Count;
 
@@ -18,8 +18,8 @@ namespace LRU.Cache.Cache
         public Cache(int maxSize)
         {
             _maxSize = maxSize;
-            _linkedList = new LinkedList<Node<TKey, TValue>>();
-            _dictionary = new Dictionary<TKey, LinkedListNode<Node<TKey, TValue>>>(_maxSize);
+            _linkedList = new LinkedList<CacheValue<TKey, TValue>>();
+            _dictionary = new Dictionary<TKey, LinkedListNode<CacheValue<TKey, TValue>>>(_maxSize);
         }
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace LRU.Cache.Cache
                 RemoveOldest();
             }
 
-            var linkedListValue = new Node<TKey, TValue>(key, value);
-            var linkedListNode = new LinkedListNode<Node<TKey, TValue>>(linkedListValue);
+            var linkedListValue = new CacheValue<TKey, TValue>(key, value);
+            var linkedListNode = new LinkedListNode<CacheValue<TKey, TValue>>(linkedListValue);
             _dictionary.Add(key, linkedListNode);
             _linkedList.AddFirst(linkedListNode);
 
