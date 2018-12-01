@@ -23,13 +23,13 @@ namespace LRU.Cache.ConcurrentCache
 
         public ConcurrentLinkedListNode<T> AddFirst(ConcurrentLinkedListNode<T> node)
         {
-            // TODO: This approach fails to provide wait-freedom and threads may starve due to contention
+            // TODO: Approach fails to provide wait-freedom and threads may starve due to contention
             while (true)
             {
-                var oldFirst = First;
-                node.Next = oldFirst;
-                Interlocked.CompareExchange(ref First, node, oldFirst);
-                if (ReferenceEquals(node, First))
+                var tempFirst = First;
+                node.Next = tempFirst;
+                var original = Interlocked.CompareExchange(ref First, node, tempFirst);
+                if (ReferenceEquals(original, tempFirst))
                 {
                     return node;
                 }

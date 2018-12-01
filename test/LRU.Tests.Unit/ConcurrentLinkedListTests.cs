@@ -76,7 +76,7 @@ namespace LRU.Tests.Unit
                 hashSet.Add(currentNode.Value);
                 currentNode = currentNode.Next;
             }
-            Assert.That(hashSet.Count, Is.EqualTo(numberNodes), "Nodes in linked list not accounted for.");
+            Assert.That(hashSet.Count, Is.EqualTo(numberNodes+1), "Nodes in linked list not accounted for.");
         }
 
         private IEnumerable<Task> GenerateAddToLinkedListTasks(int numberOfTasks)
