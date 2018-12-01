@@ -16,5 +16,9 @@ namespace LeastRecentlyUsedCache
             _maxSize = maxSize;
             _dictionary = new ConcurrentDictionary<TKey, TValue>();
         }
+
+        public void AddOrUpdate()
+        {
+        }
     }
 }
