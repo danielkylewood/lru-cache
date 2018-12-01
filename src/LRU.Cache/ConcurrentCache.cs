@@ -1,13 +1,11 @@
 ﻿using System.Collections.Concurrent;
-using LRU.Cache.Models;
 
-namespace LRU.Cache.ConcurrentCache
+namespace LeastRecentlyUsedCache
 {
     public class ConcurrentCache<TKey, TValue>
     {
         private readonly int _maxSize;
         private readonly ConcurrentDictionary<TKey, TValue> _dictionary;
-        private readonly ConcurrentLinkedList<CacheValue<TKey, TValue>> _linkedList;
 
         /// <summary>
         /// Creates a concurrent least recently used cache with a specified number of entries.

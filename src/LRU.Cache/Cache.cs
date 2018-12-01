@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using LRU.Cache.Models;
 
-namespace LRU.Cache.Cache
+namespace LeastRecentlyUsedCache
 {
     public class Cache<TKey, TValue>
     {

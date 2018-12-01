@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using LRU.Cache;
-using LRU.Cache.Cache;
 using NUnit.Framework;
 
-namespace LRU.Tests.Unit
+namespace LeastRecentlyUsedCache.Tests.Unit
 {
     public class CacheTests
     {
