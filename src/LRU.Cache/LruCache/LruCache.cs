@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using LeastRecentlyUsedCache.Models;
 
-namespace LeastRecentlyUsedCache
+namespace LeastRecentlyUsedCache.LruCache
 {
-    public class Cache<TKey, TValue>
+    public class LruCache<TKey, TValue>
     {
         private readonly int _maxSize;
-        private readonly LinkedList<CacheValue<TKey, TValue>> _linkedList;
-        private readonly Dictionary<TKey, LinkedListNode<CacheValue<TKey, TValue>>> _dictionary;
+        private readonly LinkedList<LruCacheValue<TKey, TValue>> _linkedList;
+        private readonly Dictionary<TKey, LinkedListNode<LruCacheValue<TKey, TValue>>> _dictionary;
 
         public int Count => _dictionary.Count;
 
@@ -14,11 +15,11 @@ namespace LeastRecentlyUsedCache
         /// Creates a least recently used cache with a specified number of entries.
         /// </summary>
         /// <param name="maxSize">The maximum number of entries in the least recently used cache</param>
-        public Cache(int maxSize)
+        public LruCache(int maxSize)
         {
             _maxSize = maxSize;
-            _linkedList = new LinkedList<CacheValue<TKey, TValue>>();
-            _dictionary = new Dictionary<TKey, LinkedListNode<CacheValue<TKey, TValue>>>(_maxSize);
+            _linkedList = new LinkedList<LruCacheValue<TKey, TValue>>();
+            _dictionary = new Dictionary<TKey, LinkedListNode<LruCacheValue<TKey, TValue>>>(_maxSize);
         }
 
         /// <summary>
@@ -34,8 +35,8 @@ namespace LeastRecentlyUsedCache
                 RemoveOldest();
             }
 
-            var linkedListValue = new CacheValue<TKey, TValue>(key, value);
-            var linkedListNode = new LinkedListNode<CacheValue<TKey, TValue>>(linkedListValue);
+            var linkedListValue = new LruCacheValue<TKey, TValue>(key, value);
+            var linkedListNode = new LinkedListNode<LruCacheValue<TKey, TValue>>(linkedListValue);
             _dictionary.Add(key, linkedListNode);
             _linkedList.AddFirst(linkedListNode);
 

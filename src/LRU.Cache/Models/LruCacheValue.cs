@@ -1,10 +1,10 @@
-﻿namespace LeastRecentlyUsedCache
+﻿namespace LeastRecentlyUsedCache.Models
 {
-    internal class CacheValue<TKey, TValue>
+    internal class LruCacheValue<TKey, TValue>
     {
         public TKey Key { get; }
         public TValue Value { get; }
-        public CacheValue(TKey key, TValue value)
+        public LruCacheValue(TKey key, TValue value)
         {
             Key = key;
             Value = value;

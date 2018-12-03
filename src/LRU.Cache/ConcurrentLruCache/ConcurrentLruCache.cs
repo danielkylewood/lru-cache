@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 
-namespace LeastRecentlyUsedCache
+namespace LeastRecentlyUsedCache.ConcurrentLruCache
 {
-    public class ConcurrentCache<TKey, TValue>
+    public class ConcurrentLruCache<TKey, TValue>
     {
         private readonly int _maxSize;
         private readonly ConcurrentDictionary<TKey, TValue> _dictionary;
@@ -11,7 +11,7 @@ namespace LeastRecentlyUsedCache
         /// Creates a concurrent least recently used cache with a specified number of entries.
         /// </summary>
         /// <param name="maxSize">The maximum number of entries in the least recently used cache</param>
-        public ConcurrentCache(int maxSize)
+        public ConcurrentLruCache(int maxSize)
         {
             _maxSize = maxSize;
             _dictionary = new ConcurrentDictionary<TKey, TValue>();

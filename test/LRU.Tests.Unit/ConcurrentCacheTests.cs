@@ -1,16 +1,17 @@
-﻿using NUnit.Framework;
+﻿using LeastRecentlyUsedCache.LruCache;
+using NUnit.Framework;
 
 namespace LeastRecentlyUsedCache.Tests.Unit
 {
     public class ConcurrentCacheTests
     {
         private const int _maxSize = 20;
-        private Cache<dynamic, dynamic> _cache;
+        private LruCache<dynamic, dynamic> _lruCache;
 
         [SetUp]
         public void Setup()
         {
-            _cache = new Cache<dynamic, dynamic>(_maxSize);
+            _lruCache = new LruCache<dynamic, dynamic>(_maxSize);
         }
 
         [Test]
