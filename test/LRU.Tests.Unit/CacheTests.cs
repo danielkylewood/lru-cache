@@ -8,7 +8,7 @@ namespace LeastRecentlyUsedCache.Tests.Unit
     public class CacheTests
     {
         private const int _maxSize = 20;
-        private LruCache<dynamic, dynamic> _lruCache;
+        private ILruCache<dynamic, dynamic> _lruCache;
 
         [SetUp]
         public void Setup()
@@ -133,7 +133,7 @@ namespace LeastRecentlyUsedCache.Tests.Unit
             });
         }
 
-        private static void AddCacheEntries(LruCache<dynamic, dynamic> lruCache, int numAdditions)
+        private static void AddCacheEntries(ILruCache<dynamic, dynamic> lruCache, int numAdditions)
         {
             for (var i = 0; i < numAdditions; i++)
             {

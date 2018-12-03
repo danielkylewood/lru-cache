@@ -3,16 +3,19 @@ using LeastRecentlyUsedCache.Models;
 
 namespace LeastRecentlyUsedCache.LruCache
 {
-    public class LruCache<TKey, TValue>
+    public class LruCache<TKey, TValue> : ILruCache<TKey, TValue>
     {
         private readonly int _maxSize;
         private readonly LinkedList<LruCacheValue<TKey, TValue>> _linkedList;
         private readonly Dictionary<TKey, LinkedListNode<LruCacheValue<TKey, TValue>>> _dictionary;
 
+        /// <summary>
+        /// Determines the number of key/value pairs that are currently in the <see cref="LruCache{TKey, TValue}"/>.
+        /// </summary>
         public int Count => _dictionary.Count;
 
         /// <summary>
-        /// Creates a least recently used cache with a specified number of entries.
+        /// Creates a <see cref="LruCache{TKey, TValue}"/> with a specified number of entries.
         /// </summary>
         /// <param name="maxSize">The maximum number of entries in the least recently used cache</param>
         public LruCache(int maxSize)
@@ -23,7 +26,7 @@ namespace LeastRecentlyUsedCache.LruCache
         }
 
         /// <summary>
-        /// Add a specified key/value pair to the least recently used cache.
+        /// Add a specified key/value pair to the <see cref="LruCache{TKey, TValue}"/>.
         /// </summary>
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
@@ -44,7 +47,7 @@ namespace LeastRecentlyUsedCache.LruCache
         }
 
         /// <summary>
-        /// Retrieves a value by a specified key from the least recently used cache.
+        /// Retrieves a value by a specified key from the <see cref="LruCache{TKey, TValue}"/>.
         /// </summary>
         /// <param name="key">The key for the value</param>
         /// <param name="value">The retrieved value</param>
@@ -64,7 +67,7 @@ namespace LeastRecentlyUsedCache.LruCache
         }
 
         /// <summary>
-        /// Removes a specified key/value pair from the least recently used cache.
+        /// Removes a specified key/value pair from the <see cref="LruCache{TKey, TValue}"/>.
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>The value removed from the least recently used cache</returns>
@@ -76,7 +79,7 @@ namespace LeastRecentlyUsedCache.LruCache
         }
 
         /// <summary>
-        /// Determines whether the least recently used cache contains the specified key.
+        /// Determines whether the <see cref="LruCache{TKey, TValue}"/> contains the specified key.
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>True if the key exists, else false</returns>
