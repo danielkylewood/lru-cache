@@ -7,6 +7,7 @@ namespace ConcurrentLruCache.ConcurrentLinkedList
         public T Value;
         public ConcurrentLinkedListNode<T> Next;
         public ConcurrentLinkedListNode<T> Previous;
+        public object Lock;
 
         private int _state;
         private readonly bool _isDummy;
@@ -20,7 +21,6 @@ namespace ConcurrentLruCache.ConcurrentLinkedList
         {
             Value = value;
             _isDummy = false;
-            NodeState = NodeState.Valid;
         }
 
         public ConcurrentLinkedListNode()

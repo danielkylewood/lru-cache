@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConcurrentLruCache.ConcurrentLinkedList
 {
-    internal class ConcurrentLinkedList<T>
+    internal class ConcurrentLinkedList<T> : IConcurrentLinkedList<T>
     {
-        public ConcurrentLinkedListNode<T> First;
-        public ConcurrentLinkedListNode<T> Last;
+        private ConcurrentLinkedListNode<T> _first;
+        private ConcurrentLinkedListNode<T> _last;
+
+        public ConcurrentLinkedListNode<T> First => _first;
 
         public ConcurrentLinkedList()
         {
             var dummyNode = new ConcurrentLinkedListNode<T>();
-            First = dummyNode;
-            Last = dummyNode;
+            _first = dummyNode;
+            _last = dummyNode;
         }
 
         /// <summary>
@@ -22,35 +25,128 @@ namespace ConcurrentLruCache.ConcurrentLinkedList
         /// <param name="node">The node to add</param>
         public void AddFirst(ConcurrentLinkedListNode<T> node)
         {
-            
+            node.Next = null;
+            node.Previous = null;
+
             while (true)
             {
-                var old = First;
+                var old = _first;
                 node.Next = old;
-                var original = Interlocked.CompareExchange(ref First, node, old);
+                var original = Interlocked.CompareExchange(ref _first, node, old);
                 if (ReferenceEquals(original, old))
                 {
+                    SetFirstValidPrevious(_first, _first);
                     return;
                 }
             }
         }
 
-        public bool TryRemove(ConcurrentLinkedListNode<T> node, out ConcurrentLinkedListNode<T> outNode)
+        public void RemoveAndAddFirst(ConcurrentLinkedListNode<T> node)
         {
+            if (node.Equals(_first))
+            {
+                return;
+            }
+
             var originalState = node.CompareAndExchangeNodeState(NodeState.Invalid, NodeState.Valid);
             if (originalState == NodeState.Invalid)
             {
-                outNode = node;
-                return false;
+                return;
             }
-
-            outNode = null;
-            return true;
+            
+            SetFirstValidNext(node, node.Next);
+            SetFirstValidPrevious(node, node.Previous);
+            
+            
+            AddFirst(node);
         }
 
-        public bool RemoveLast()
+        public void RemoveLast()
         {
-            return true;
+            var originalState = _last.CompareAndExchangeNodeState(NodeState.Invalid, NodeState.Valid);
+            if (originalState == NodeState.Invalid)
+            {
+                RemoveNextLast(_last.Previous);
+                return;
+            }
+
+            var current = _last.Previous;
+            while (current != _last)
+            {
+                lock (current.Lock)
+                {
+                    if (current.NodeState == NodeState.Invalid)
+                    {
+                        current = current.Previous;
+                    }
+                    else
+                    {
+                        _last = current;
+                        current.Next = null;
+                    }
+                }
+            }
+        }
+
+        private void RemoveNextLast(ConcurrentLinkedListNode<T> node)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            var originalState = node.CompareAndExchangeNodeState(NodeState.Invalid, NodeState.Valid);
+            if (originalState == NodeState.Invalid)
+            {
+                RemoveNextLast(node.Previous);
+                return;
+            }
+        
+            lock (node.Lock)
+            {
+                SetFirstValidNext(node, null);
+            }
+        
+        }
+
+        private static void SetFirstValidNext(ConcurrentLinkedListNode<T> current, ConcurrentLinkedListNode<T> value)
+        {
+            current = current.Previous;
+            while (current != null)
+            {
+                lock (current.Lock)
+                {
+                    if (current.NodeState == NodeState.Invalid)
+                    {
+                        current = current.Previous;
+                    }
+                    else
+                    {
+                        current.Next = value;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private static void SetFirstValidPrevious(ConcurrentLinkedListNode<T> current, ConcurrentLinkedListNode<T> value)
+        {
+            current = current.Next;
+            while (current != null)
+            {
+                lock (current.Lock)
+                {
+                    if (current.NodeState == NodeState.Invalid)
+                    {
+                        current = current.Next;
+                    }
+                    else
+                    {
+                        current.Previous = value;
+                        break;
+                    }
+                }
+            }
         }
     }
 }
