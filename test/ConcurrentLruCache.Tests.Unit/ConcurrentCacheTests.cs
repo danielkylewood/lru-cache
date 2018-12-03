@@ -1,7 +1,7 @@
-﻿using LeastRecentlyUsedCache.LruCache;
+﻿using ConcurrentLruCache.LruCache;
 using NUnit.Framework;
 
-namespace LeastRecentlyUsedCache.Tests.Unit
+namespace ConcurrentLruCache.Tests.Unit
 {
     public class ConcurrentCacheTests
     {

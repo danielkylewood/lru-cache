@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using LeastRecentlyUsedCache.Models;
+using ConcurrentLruCache.Models;
 
-namespace LeastRecentlyUsedCache.LruCache
+namespace ConcurrentLruCache.LruCache
 {
     public class LruCache<TKey, TValue> : ILruCache<TKey, TValue>
     {

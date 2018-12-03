@@ -1,4 +1,4 @@
-﻿namespace LeastRecentlyUsedCache.LruCache
+﻿namespace ConcurrentLruCache.LruCache
 {
     public interface ILruCache<in TKey, TValue>
     {

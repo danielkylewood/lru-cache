@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeastRecentlyUsedCache", "src\ConcurrentLruCache\LeastRecentlyUsedCache.csproj", "{9ECF5D19-6B03-4C6F-BCD0-0C3507EF36E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcurrentLruCache", "src\ConcurrentLruCache\ConcurrentLruCache.csproj", "{9ECF5D19-6B03-4C6F-BCD0-0C3507EF36E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeastRecentlyUsedCache.Tests.Unit", "test\ConcurrentLruCache.Tests.Unit\LeastRecentlyUsedCache.Tests.Unit.csproj", "{307925C6-7A0C-4DBD-AFDD-97919C67C7C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcurrentLruCache.Tests.Unit", "test\ConcurrentLruCache.Tests.Unit\ConcurrentLruCache.Tests.Unit.csproj", "{307925C6-7A0C-4DBD-AFDD-97919C67C7C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5DD3DEEC-6F52-4CE7-AFE3-7EE8425B9FA4}"
 EndProject

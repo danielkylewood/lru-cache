@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\LRU.Cache\LeastRecentlyUsedCache.csproj" />
+    <ProjectReference Include="..\..\src\ConcurrentLruCache\ConcurrentLruCache.csproj" />
   </ItemGroup>
 
 </Project>

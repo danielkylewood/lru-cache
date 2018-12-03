@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace LeastRecentlyUsedCache.ConcurrentLruCache
+namespace ConcurrentLruCache.ConcurrentLruCache
 {
     public class ConcurrentLruCache<TKey, TValue>
     {

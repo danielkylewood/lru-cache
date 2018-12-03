@@ -1,6 +1,15 @@
-﻿namespace LeastRecentlyUsedCache.ConcurrentLruCache
+﻿namespace ConcurrentLruCache.ConcurrentLruCache
 {
-    public class ConcurrentLruCacheLinkedList<T>
+    internal class ConcurrentLruCacheLinkedList<T>
     {
+        public ConcurrentLruCacheLinkedListNode<T> First;
+        public ConcurrentLruCacheLinkedListNode<T> Last;
+
+        public bool AddFirst(T Value)
+        {
+            return true;
+        }
+
+        public bool Remove(T Value);
     }
 }
