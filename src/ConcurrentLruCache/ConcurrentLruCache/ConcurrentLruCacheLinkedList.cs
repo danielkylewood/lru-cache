@@ -7,9 +7,18 @@
 
         public bool AddFirst(T Value)
         {
+
             return true;
         }
 
-        public bool Remove(T Value);
+        public bool Remove(T Value)
+        {
+            return true;
+        }
+
+        public bool RemoveLast()
+        {
+            return true;
+        }
     }
 }
