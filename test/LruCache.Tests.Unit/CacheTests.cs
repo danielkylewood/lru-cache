@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConcurrentLruCache.LruCache;
 using NUnit.Framework;
 
-namespace ConcurrentLruCache.Tests.Unit
+namespace LruCache.Tests.Unit
 {
     public class CacheTests
     {

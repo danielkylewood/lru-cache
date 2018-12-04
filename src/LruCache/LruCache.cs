@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using ConcurrentLruCache.Models;
 
-namespace ConcurrentLruCache.LruCache
+namespace LruCache
 {
     public class LruCache<TKey, TValue> : ILruCache<TKey, TValue>
     {

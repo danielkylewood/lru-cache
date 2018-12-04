@@ -1,4 +1,4 @@
-﻿namespace ConcurrentLruCache.LruCache
+﻿namespace LruCache
 {
     public interface ILruCache<in TKey, TValue>
     {

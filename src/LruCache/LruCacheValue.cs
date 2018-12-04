@@ -1,4 +1,4 @@
-﻿namespace ConcurrentLruCache.Models
+﻿namespace LruCache
 {
     internal class LruCacheValue<TKey, TValue>
     {
