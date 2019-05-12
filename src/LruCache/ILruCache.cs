@@ -12,7 +12,6 @@
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>True if the key exists, else false</returns>
-        /// <exception cref="System.ArgumentException">Thrown when adding a duplicate key to the cache.</exception>
         bool ContainsKey(TKey key);
 
         /// <summary>
@@ -21,6 +20,7 @@
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         /// <returns>The value that was added to the least recently used cache</returns>
+        /// <exception cref="System.ArgumentException">Thrown when adding a duplicate key to the cache.</exception>
         TValue Add(TKey key, TValue value);
 
         /// <summary>

@@ -8,9 +8,6 @@ namespace LruCache
         private readonly LinkedList<LruCacheValue<TKey, TValue>> _linkedList;
         private readonly Dictionary<TKey, LinkedListNode<LruCacheValue<TKey, TValue>>> _dictionary;
 
-        /// <summary>
-        /// Determines the number of key/value pairs that are currently in the <see cref="LruCache{TKey, TValue}"/>.
-        /// </summary>
         public int Count => _dictionary.Count;
 
         /// <summary>
@@ -24,13 +21,7 @@ namespace LruCache
             _dictionary = new Dictionary<TKey, LinkedListNode<LruCacheValue<TKey, TValue>>>(_maxSize);
         }
 
-        /// <summary>
-        /// Add a specified key/value pair to the <see cref="LruCache{TKey, TValue}"/>.
-        /// </summary>
-        /// <param name="key">The key</param>
-        /// <param name="value">The value</param>
-        /// <returns>The value that was added to the least recently used cache</returns>
-        /// <exception cref="System.ArgumentException">Thrown when adding a duplicate key to the cache.</exception>
+        /// <inheritdoc />
         public TValue Add(TKey key, TValue value)
         {
             if (Count == _maxSize)
@@ -46,12 +37,7 @@ namespace LruCache
             return value;
         }
 
-        /// <summary>
-        /// Retrieves a value by a specified key from the <see cref="LruCache{TKey, TValue}"/>.
-        /// </summary>
-        /// <param name="key">The key for the value</param>
-        /// <param name="value">The retrieved value</param>
-        /// <returns>True if the value was successfully retrieved, else false</returns>
+        /// <inheritdoc />
         public bool TryGetValue(TKey key, out TValue value)
         {
             if (!_dictionary.ContainsKey(key))
@@ -66,11 +52,7 @@ namespace LruCache
             return true;
         }
 
-        /// <summary>
-        /// Removes a specified key/value pair from the <see cref="LruCache{TKey, TValue}"/>.
-        /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>The value removed from the least recently used cache</returns>
+        /// <inheritdoc />
         public TValue Remove(TKey key)
         {
             _dictionary.Remove(key, out var node);
@@ -78,11 +60,7 @@ namespace LruCache
             return node.Value.Value;
         }
 
-        /// <summary>
-        /// Determines whether the <see cref="LruCache{TKey, TValue}"/> contains the specified key.
-        /// </summary>
-        /// <param name="key">The key</param>
-        /// <returns>True if the key exists, else false</returns>
+        /// <inheritdoc />
         public bool ContainsKey(TKey key)
         {
             return _dictionary.ContainsKey(key);
