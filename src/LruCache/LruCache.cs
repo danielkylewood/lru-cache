@@ -30,6 +30,7 @@ namespace LruCache
         /// <param name="key">The key</param>
         /// <param name="value">The value</param>
         /// <returns>The value that was added to the least recently used cache</returns>
+        /// <exception cref="System.ArgumentException">Thrown when adding a duplicate key to the cache.</exception>
         public TValue Add(TKey key, TValue value)
         {
             if (Count == _maxSize)

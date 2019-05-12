@@ -12,6 +12,7 @@
         /// </summary>
         /// <param name="key">The key</param>
         /// <returns>True if the key exists, else false</returns>
+        /// <exception cref="System.ArgumentException">Thrown when adding a duplicate key to the cache.</exception>
         bool ContainsKey(TKey key);
 
         /// <summary>

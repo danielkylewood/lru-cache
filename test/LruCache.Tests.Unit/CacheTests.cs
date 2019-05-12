@@ -29,6 +29,18 @@ namespace LruCache.Tests.Unit
         }
 
         [Test]
+        [TestCaseSource(nameof(AddCases))]
+        public void When_Adding_Existing_Key_To_Cache_Then_Throws_Exception(dynamic objectToAdd)
+        {
+            // When value added to the lruCache
+            _lruCache.Add(objectToAdd, objectToAdd);
+            Assert.Throws<ArgumentException>(() =>
+            {
+                _lruCache.Add(objectToAdd, objectToAdd);
+            });
+        }
+
+        [Test]
         public void When_Adding_To_The_Cache_Over_Capacity_Then_Oldest_Is_Removed()
         {
             // Given a value to add to lruCache
